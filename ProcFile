@@ -1,1 +1,0 @@
-web: gunicorn emailProject.wsgi --log-file -
