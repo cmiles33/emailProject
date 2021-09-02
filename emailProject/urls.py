@@ -18,10 +18,11 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-
+from reTranslation.views import list_programs
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('retranslation/',include('reTranslation.urls',namespace='retranslation'))
+    path('retranslation/',include('reTranslation.urls',namespace='retranslation')),
+    path('',list_programs, name='list_programs')
 
 ]
 
