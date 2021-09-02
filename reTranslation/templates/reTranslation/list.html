@@ -1,14 +1,47 @@
 {% extends "reTranslation/base.html" %}
+{% load static %}
 {% block title %} Lists of Programs{% endblock %}
-
+{% block dynamicNav %}
+<div class="topnav">
+    <a class="active" href="{% url 'retranslation:list_programs'  %}">Home</a>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'retranslation:logout' %}">Logout</a>
+    {% endif %}
+    <a class="text-white">Logged in as: {{ request.user.username|capfirst }}</a>
+</div>
+{% endblock %}
 {% block content %}
 
-    <h1>My list of Programs</h1>
-    {% for program in programs %}
-        <h2>
-        {{ program | linebreaks}}
-        </h2>
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg align-items-center">
+                <div class="jumbotron text-center ">
+                <h1>{{ request.user.username|capfirst }}'s Registered Programs</h1>
+            </div>
+            </div>
 
-    {% endfor %}
+        </div>
+        <div class="row items">
+        {% for program in programs %}
+            <div class="col-sm ">
+            <div class="p-3">
+                <div class="card" style="width: 25rem;">
+                    <img class="card-img-top" src="{{ program.photo.url }}"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ program|title }}</h5>
+                        <p class="card-text">You have completed: {{ program.programCount }} out of {{ program.totalCount }}
+                            available
+                            Translations
+                        </p>
+                        <a href="{{ program.get_absolute_url }}" class="btn btn-primary">View Translations </a>
+                    </div>
+                </div>
+            </div>
+           </div>
+        {% endfor %}
+         </div>
+    </div>
+
 
 {% endblock %}

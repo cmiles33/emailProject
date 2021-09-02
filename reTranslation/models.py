@@ -23,11 +23,23 @@ class Program(models.Model):
     endTime = models.TimeField(default=timezone.now)
     active = models.BooleanField(default=False)
     served = models.BooleanField(default=False)
+    totalCount = models.IntegerField(default=0)
+    totalComplete = models.IntegerField(default=0)
+    photo = models.ImageField(upload_to='programs/', blank=True)
 
     def get_absolute_url(self):
-        return reverse('retranslation:program_detail',
-                       self.member,
-                       self.programName)
+        return reverse('retranslation:program_detail',args=[
+            self.member.username,
+            self.programName,
+        ])
+
+    def get_next_payload_url(self):
+        return reverse('retranslation:response_detail',args=[
+            self.member.username,
+            self.programName,
+            self.programCount
+        ])
+
 
     def __str__(self):
         return self.member.username + "'s " + self.programName + " program"
@@ -58,4 +70,21 @@ class Reponse(models.Model):
                                 on_delete=models.PROTECT,
                                 related_name='reponses')
     textresponse = models.TextField(max_length=1000,
-                                    default=None)
+                                    default=None,verbose_name="Your Translation")
+    finished = models.BooleanField(default=False)
+    created = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['payload__payloadnumber',]
+
+    def get_absolute_url(self):
+        return reverse('retranslation:response_detail', args=[
+            self.program.member.username,
+            self.program.programName,
+            self.payload.payloadnumber
+        ])
+
+    def __str__(self):
+        return self.program.member.username + "'s " + \
+            self.program.programName + " translation #" +\
+            str(self.payload.payloadnumber)
