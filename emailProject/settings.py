@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'reTranslation.apps.RetranslationConfig',
     'django_extensions',
     'crispy_forms',
+    'herokuapp'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
