@@ -93,8 +93,8 @@ def response_detail(request, user, programname, payloadnumber):
             # Get the text response information
             new_response = response_form.save(commit=False)
             # Get the program and payload objects
-            program.programCount += 1
-            program.save()
+            #program.programCount += 1
+            #program.save()
             response = Reponse.objects.get(program__member__username=user,
                                            program__programName=programname,
                                            payload__payloadnumber=payloadnumber)
