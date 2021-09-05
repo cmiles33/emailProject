@@ -32,6 +32,11 @@ def user_login(request):
                   {'form':form})
 
 
+
+
+
+
+
 @login_required
 def list_programs(request):
     member = request.user.username
@@ -39,6 +44,19 @@ def list_programs(request):
     return render(request,
                   'reTranslation/list.html',
                   {'programs':programs})
+
+
+def response_storage(request, user, programname):
+    responses = Reponse.objects.filter(program__programName=programname,
+                                       finished=True,
+                                       program__member__username=user)
+    program = get_object_or_404(Program,
+                                member__username=user,
+                                programName=programname)
+
+    return render(request,'reTranslation/submitted_responses.html',
+                  {'responses':responses,
+                   'program':program})
 
 @login_required
 def program_detail(request, user, programname):

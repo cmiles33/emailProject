@@ -4,7 +4,6 @@
 {% block title %} {{ program.programName|capfirst }} Payload
              #{{ payload.payloadnumber }} {% endblock %}
 {% block dynamicNav %}
-    <div class="topnav">
         <a href="{% url 'retranslation:list_programs' %}">Home</a>
         <a href="{% url 'retranslation:program_detail' user=request.user.username programname=program.programName %}">
             Program Details
@@ -14,7 +13,6 @@
             <a href="{% url 'retranslation:logout' %}">Logout</a>
         {% endif %}
         <a class="text-white">Logged in as: {{ request.user.username|capfirst }}</a>
-    </div>
 {% endblock %}
 {% block content %}
 
