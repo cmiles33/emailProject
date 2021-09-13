@@ -26,7 +26,6 @@ class Program(models.Model):
     totalCount = models.IntegerField(default=0)
     totalComplete = models.IntegerField(default=0)
     photo = models.ImageField(upload_to='programs/', blank=True)
-    isthisblack = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('retranslation:program_detail',args=[

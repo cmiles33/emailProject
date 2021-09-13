@@ -21,8 +21,8 @@
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: green;
-  color: darkgreen;
+  background-color: saddlebrown;
+  color: white;
 }
 
 .interesting{
