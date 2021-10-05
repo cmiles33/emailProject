@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404,redirect
+from django.views.decorators.http import require_POST
+
 from .models import Program, Reponse,Payload
 from .forms import ResponseForm, LoginForm
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.utils import timezone
 
@@ -35,6 +37,35 @@ def user_login(request):
 
 
 
+@login_required
+@require_POST
+def testing_ajax(request):
+    username = request.POST.get('username')
+    programname = request.POST.get('programname')
+    payloadnumber = request.POST.get('payloadnumber')
+    text_contents = request.POST.get('text_contents')
+    print(text_contents)
+    print(username)
+    print(programname)
+    print(payloadnumber)
+
+    if username and programname and payloadnumber:
+        response = Reponse.objects.get(program__member__username=username,
+                                       program__programName=programname,
+                                       payload__payloadnumber=payloadnumber)
+
+        response.textresponse = text_contents
+        response.save()
+        #response.textresponse = new_response.textresponse
+        #response.program = program
+        #response.finished = True
+        #response.created = timezone.now()
+        #response.save()
+
+
+        return JsonResponse({'status':'ok'})
+    else:
+        return JsonResponse({'status':'error'})
 
 
 @login_required
@@ -123,6 +154,7 @@ def response_detail(request, user, programname, payloadnumber):
             response.save()
             new_response = True
     else:
+        # If we are not uploading the form, then we are presenting it.
         response_form = ResponseForm()
 
 
@@ -130,8 +162,12 @@ def response_detail(request, user, programname, payloadnumber):
         response = Reponse.objects.get(program__member__username=user,
                                           program__programName=programname,
                                           payload__payloadnumber=payloadnumber)
+        mylast = response.textresponse
+        initdic = {"textresponse":mylast}
+        response_form = ResponseForm(initial=initdic)
         if not response.finished:
             response = None
+
 
     except:
         response = None

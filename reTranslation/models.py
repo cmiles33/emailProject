@@ -62,6 +62,7 @@ class Payload(models.Model):
     def __str__(self):
         return self.programName + " " + str(self.payloadnumber)
 
+
 class Reponse(models.Model):
     program = models.ForeignKey(Program,
                                 on_delete=models.CASCADE,
@@ -69,7 +70,7 @@ class Reponse(models.Model):
     payload = models.ForeignKey(Payload,
                                 on_delete=models.PROTECT,
                                 related_name='reponses')
-    textresponse = models.TextField(max_length=1000,
+    textresponse = models.TextField(max_length=100000,
                                     default=None,verbose_name="Your Translation")
     finished = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
