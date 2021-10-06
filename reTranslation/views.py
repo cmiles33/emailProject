@@ -134,6 +134,7 @@ def response_detail(request, user, programname, payloadnumber):
                                 programName=programname,
                                 payloadnumber=payloadnumber)
     new_response = None
+    mylast = ""
     # If we dont have a response yet, then a form needs to be displayed
     # so the user can make one.
     if request.method =='POST':
@@ -169,6 +170,7 @@ def response_detail(request, user, programname, payloadnumber):
             response = None
 
 
+
     except:
         response = None
         # Create new Response with finish value false
@@ -192,4 +194,5 @@ def response_detail(request, user, programname, payloadnumber):
                    'response':response,
                    'payload':payload,
                    'response_form':response_form,
-                   'new_response':new_response})
+                   'new_response':new_response,
+                   'autofilled':mylast})
