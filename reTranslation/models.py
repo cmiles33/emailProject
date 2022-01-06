@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 class Program(models.Model):
     program_choices = (
         ('french','French'),
-        ('spanish','Spanish',)
+        ('spanish','Spanish'),
+        ('portuguese', 'Portuguese'),
     )
 
     programName = models.CharField(max_length=40,
@@ -48,6 +49,7 @@ class Payload(models.Model):
     program_choices = (
         ('french','French'),
         ('spanish','Spanish'),
+        ('portuguese','Portuguese'),
         ('none','None'),
     )
     payloadnumber = models.IntegerField()

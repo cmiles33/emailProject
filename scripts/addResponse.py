@@ -13,7 +13,7 @@ def run():
 
     # Reading in French payloads:
 
-    payloadType = "french"
+    payloadType = "portuguese"
     newpath = pathlib.Path('reTranslation/static/french')
     for files in sorted(newpath.rglob("*.*")):
         payloadString = ""

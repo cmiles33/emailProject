@@ -9,8 +9,8 @@ def run():
 
     # Reading in French payloads:
 
-    payloadType = "french"
-    newpath = pathlib.Path('reTranslation/static/french')
+    payloadType = "portuguese"
+    newpath = pathlib.Path('reTranslation/static/portuguese')
     for files in sorted(newpath.rglob("*.*")):
         payloadString = ""
         print(str(files))
@@ -23,12 +23,12 @@ def run():
             print(lines)
             payloadString += lines
         print("Going in: "+ payloadString)
-        payloadTemp = Payload(programName="french",
+        payloadTemp = Payload(programName="portuguese",
                               payloadnumber=number,
                               content=payloadString)
         payloadTemp.save()
 
-
+'''
     # Reading in Spanish Payloads
 
     payloadType = "spanish"
@@ -50,5 +50,5 @@ def run():
         payloadTemp.save()
 
 
-
+'''
 
