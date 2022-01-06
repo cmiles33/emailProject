@@ -21,17 +21,23 @@
             </div>
 
         </div>
-        <div class="row">
-            <button id="about-btn"> Click me I do things tbh.</button>
-
-        </div>
         <div class="row items">
         {% for program in programs %}
             <div class="col-sm ">
             <div class="p-3">
                 <div class="card" style="width: 25rem;">
+                    {% if program.programName == "french" %}
                     <img class="card-img-top" src="{% static "pictures/french.jpg"%}"
                          alt="Card image cap">
+                    {% endif %}
+                    {% if program.programName == "spanish" %}
+                    <img class="card-img-top" src="{% static "pictures/spanish.jpg"%}"
+                         alt="Card image cap">
+                    {% endif %}
+                    {% if program.programName == "portuguese" %}
+                    <img class="card-img-top" src="{% static "pictures/brahsill2.jpg"%}"
+                         alt="Card image cap">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ program|title }}</h5>
                         <p class="card-text">You have completed: {{ program.programCount }} out of {{ program.totalCount }}
