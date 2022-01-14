@@ -51,6 +51,23 @@
                     {{ response.textresponse }}
                 </p>
             </div>
+            <div class="row">
+                <div class="col-5">
+                    <a class="btn btn-lg btn-dark active"
+                       href="{% url "retranslation:program_detail" user=request.user.username programname=program.programName %}">
+                        Return to Program Details
+                    </a>
+                </div>
+                {% if new_response %}
+                <div class="col-5">
+
+                    <a class="btn btn-lg btn-danger active" href="{{ program.get_next_payload_url }}">
+                        Start Translation Number: {{ program.programCount }}
+                    </a>
+
+                </div>
+                {% endif %}
+            </div>
         {% else %}
             <div class="row">
                 <h3 class="text-primary font-weight-bold ">Create Translation</h3>
@@ -64,19 +81,29 @@
                         <div class="">
                         <textarea name="textresponse" cols="150" rows="10" maxlength="100000"
                                   class="textarea form-control lead text-body"
-                                  required id="id_textresponse" >{{ autofilled }}</textarea>
+                                  required id="id_textresponse">{{ autofilled }}</textarea>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-lg"><input class=" btn btn-primary btn-lg active" type="submit" value="Finish Translation">
-            </div>
-            </form>
                 <div class="row">
+                    <div class="col-5"><input class=" btn btn-primary btn-lg active" type="submit"
+                                              value="Finish Translation">
+                    </div>
+                    <div class="col-5">
+                        <a class="btn btn-lg btn-dark active"
+                           href="{% url "retranslation:program_detail" user=request.user.username programname=program.programName %}">
+                            Return to Program Details
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+            <div class="row">
                 <h5 id="auto-info" class="text-success border-success">
                 </h5>
             </div>
-        </div>
+            </div>
 
         {% endif %}
     </div>
@@ -128,7 +155,7 @@
                 myTimer();
                 $("#auto-info").text("Your work is unsaved.").addClass('text-danger');
                 $('textarea').addClass("border-danger")
-                .removeClass("bg-success");
+                    .removeClass("bg-success");
             });
 
         });
